@@ -1,6 +1,13 @@
-generator custom_generator {
+generator custom_generator_sample {
   provider = "node ../../node_modules/prisma-generator-templates"
-  output   = "../types"
+  output   = "sample.generated.txt"
+  template = "sample.hbs"
+}
+
+generator custom_generator_graphql {
+  provider = "node ../../node_modules/prisma-generator-templates"
+  output   = "graphql.generated.txt"
+  template = "graphql.hbs"
 }
 
 datasource db {
@@ -9,9 +16,27 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  name      String?
+  role      Role     @default(USER)
+  posts     Post[]
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  published Boolean  @default(false)
+  title     String   @db.VarChar(255)
+  author    User?    @relation(fields: [authorId], references: [id])
+  authorId  Int?
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 enum NotificationType {

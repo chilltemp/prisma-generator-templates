@@ -1,0 +1,46 @@
+type ABCUser {
+  id: Int!  
+  createdAt: DateTime_NOT_SUPPORTED!  
+  email: ReallySpecialEmailType!  
+  name: String  
+  role: ABCRole!  
+  posts: [ABCPost!]  
+}
+
+type ABCPost {
+  id: Int!  
+  createdAt: DateTime_NOT_SUPPORTED!  
+  updatedAt: DateTime_NOT_SUPPORTED!  
+  published: Boolean!  
+  title: String!  
+  author: ABCUser  
+  authorId: Int  
+}
+
+
+enum ABCRole {
+  USER
+  ADMIN
+} 
+
+enum ABCNotificationType {
+  newPosts
+  newComments
+  newFollowers
+  reply
+  heartOnPost
+  heartOnComment
+  heartOnReply
+} 
+
+enum ABCLanguage {
+  Typescript
+  Javascript
+  Rust
+  Go
+  Python
+  Cpp
+} 
+
+
+

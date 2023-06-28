@@ -1,0 +1,336 @@
+SAMPLE USAGE
+
+Iterate models:
+  User
+  Post
+
+
+Iterate enums:
+  Role
+  NotificationType
+  Language
+
+
+Iterate models and their fields:
+    User {
+      id Int
+      createdAt DateTime
+      email String
+      name String
+      role Role
+      posts Post
+    }
+
+Custom type renaming:{
+  "Boolean": "bool",
+  "DateTime": "Date",
+  "Float": "Float",
+  "Int": "Int",
+  "String": "String",
+  "User.email.String": "ReallySpecialEmailType"
+}
+
+
+You can dump variables as JSON for debugging:
+{
+  "enums": [
+    {
+      "name": "Role",
+      "values": [
+        {
+          "name": "USER",
+          "dbName": null
+        },
+        {
+          "name": "ADMIN",
+          "dbName": null
+        }
+      ],
+      "dbName": null
+    },
+    {
+      "name": "NotificationType",
+      "values": [
+        {
+          "name": "newPosts",
+          "dbName": null
+        },
+        {
+          "name": "newComments",
+          "dbName": null
+        },
+        {
+          "name": "newFollowers",
+          "dbName": null
+        },
+        {
+          "name": "reply",
+          "dbName": null
+        },
+        {
+          "name": "heartOnPost",
+          "dbName": null
+        },
+        {
+          "name": "heartOnComment",
+          "dbName": null
+        },
+        {
+          "name": "heartOnReply",
+          "dbName": null
+        }
+      ],
+      "dbName": null
+    },
+    {
+      "name": "Language",
+      "values": [
+        {
+          "name": "Typescript",
+          "dbName": null
+        },
+        {
+          "name": "Javascript",
+          "dbName": null
+        },
+        {
+          "name": "Rust",
+          "dbName": null
+        },
+        {
+          "name": "Go",
+          "dbName": null
+        },
+        {
+          "name": "Python",
+          "dbName": null
+        },
+        {
+          "name": "Cpp",
+          "dbName": null
+        }
+      ],
+      "dbName": null
+    }
+  ],
+  "models": [
+    {
+      "name": "User",
+      "dbName": null,
+      "fields": [
+        {
+          "name": "id",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": true,
+          "isReadOnly": false,
+          "type": "Int",
+          "hasDefaultValue": true,
+          "default": {
+            "name": "autoincrement",
+            "args": []
+          },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "createdAt",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "type": "DateTime",
+          "hasDefaultValue": true,
+          "default": {
+            "name": "now",
+            "args": []
+          },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "email",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "isId": false,
+          "isReadOnly": false,
+          "type": "String",
+          "hasDefaultValue": false,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "name",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "type": "String",
+          "hasDefaultValue": false,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "role",
+          "kind": "enum",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "type": "Role",
+          "hasDefaultValue": true,
+          "default": "USER",
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "posts",
+          "kind": "object",
+          "isList": true,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "type": "Post",
+          "hasDefaultValue": false,
+          "relationName": "PostToUser",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        }
+      ],
+      "isGenerated": false,
+      "primaryKey": null,
+      "uniqueFields": [],
+      "uniqueIndexes": []
+    },
+    {
+      "name": "Post",
+      "dbName": null,
+      "fields": [
+        {
+          "name": "id",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": true,
+          "isReadOnly": false,
+          "type": "Int",
+          "hasDefaultValue": true,
+          "default": {
+            "name": "autoincrement",
+            "args": []
+          },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "createdAt",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "type": "DateTime",
+          "hasDefaultValue": true,
+          "default": {
+            "name": "now",
+            "args": []
+          },
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "updatedAt",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "type": "DateTime",
+          "hasDefaultValue": false,
+          "isGenerated": false,
+          "isUpdatedAt": true
+        },
+        {
+          "name": "published",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "type": "Boolean",
+          "hasDefaultValue": true,
+          "default": false,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "title",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "type": "String",
+          "hasDefaultValue": false,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "author",
+          "kind": "object",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": false,
+          "type": "User",
+          "hasDefaultValue": false,
+          "relationName": "PostToUser",
+          "relationFromFields": [
+            "authorId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isGenerated": false,
+          "isUpdatedAt": false
+        },
+        {
+          "name": "authorId",
+          "kind": "scalar",
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "isId": false,
+          "isReadOnly": true,
+          "type": "Int",
+          "hasDefaultValue": false,
+          "isGenerated": false,
+          "isUpdatedAt": false
+        }
+      ],
+      "isGenerated": false,
+      "primaryKey": null,
+      "uniqueFields": [],
+      "uniqueIndexes": []
+    }
+  ],
+  "types": []
+}

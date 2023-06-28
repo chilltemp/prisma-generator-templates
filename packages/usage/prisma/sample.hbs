@@ -1,0 +1,40 @@
+SAMPLE USAGE
+
+Iterate models:
+{{#each dmmf.datamodel.models}}
+  {{name}}
+{{/each}}
+
+
+Iterate enums:
+{{#each dmmf.datamodel.enums}}
+  {{name}}
+{{/each}}
+
+
+Iterate models and their fields:
+{{#each dmmf.datamodel.models as |model|}}
+  {{#if @first}}
+    {{model.name}} {
+    {{#each fields as |field|}}
+      {{field.name}} {{field.type}}
+    {{/each}}
+    }
+  {{/if}}
+{{/each}}
+
+Custom type renaming:
+{{~registerTypeNamePrefix "ABC"               ~}}
+{{~registerTypeNameSuffix "XYZ"               ~}}
+{{~registerTypeOverride "Boolean"   "bool"    ~}}
+{{~registerTypeOverride "DateTime"  "Date"    ~}}
+{{~registerTypeOverride "Float"     "Float"   ~}}
+{{~registerTypeOverride "Int"       "Int"     ~}}
+{{~registerTypeOverride "String"    "String"  ~}}
+{{~registerTypeOverride "User.email.String"  "ReallySpecialEmailType" ~}}
+
+{{JSONstringify (getTypeOverrides) 2}}
+
+
+You can dump variables as JSON for debugging:
+{{JSONstringify dmmf.datamodel 2}}

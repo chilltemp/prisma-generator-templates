@@ -1,0 +1,42 @@
+{{~registerTypeNamePrefix "ABC"                              ~}}
+{{~registerTypeOverride "BigInt"    "BigInt_NOT_SUPPORTED"   ~}}
+{{~registerTypeOverride "Boolean"   "Boolean"                ~}}
+{{~registerTypeOverride "Bytes"     "Bytes_NOT_SUPPORTED"    ~}}
+{{~registerTypeOverride "DateTime"  "DateTime_NOT_SUPPORTED" ~}}
+{{~registerTypeOverride "Decimal"   "Decimal"                ~}}
+{{~registerTypeOverride "Float"     "Float"                  ~}}
+{{~registerTypeOverride "Int"       "Int"                    ~}}
+{{~registerTypeOverride "Json"      "Json_NOT_SUPPORTED"     ~}}
+{{~registerTypeOverride "String"    "String"                 ~}}
+{{~registerTypeOverride "User.email.String"  "ReallySpecialEmailType" ~}}
+
+
+{{#each dmmf.datamodel.models as |model|}}
+type {{convertType model.name}} {
+{{#each fields as |field|}}
+  {{field.name}}:
+  {{~#if field.isList}} 
+    {{~#and field.isRequired (not field.relationName)}} [{{convertType model.name field.name field.type}}!]!
+    {{~else}} [{{convertType model.name field.name field.type}}!]
+    {{~/and}}
+  {{~else}}
+    {{~#and field.isRequired (not field.relationName)}} {{convertType model.name field.name field.type}}!
+    {{~else}} {{convertType model.name field.name field.type}}
+    {{~/and}}
+  {{~/if}}
+  
+{{/each}}
+}
+
+{{/each}}
+
+{{#each dmmf.datamodel.enums as |enum|}}
+enum {{convertType enum.name}} {
+{{#each values as |value|}}
+  {{convertType enum.name value.name false}}
+{{/each}}
+} 
+
+{{/each}}
+
+
